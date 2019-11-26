@@ -4,7 +4,7 @@
 
     <groupId>org.sbforge</groupId>
     <artifactId>sbforge-parent</artifactId>
-    <version>21</version>
+    <version>22-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     <name>SBForge Uber POM</name>
@@ -31,7 +31,7 @@
     <scm>
         <connection>scm:git:https://github.com/statsbiblioteket/sbforge-parent.git</connection>
         <developerConnection>scm:git:git@github.com:statsbiblioteket/sbforge-parent.git</developerConnection>
-        <tag>sbforge-parent-21</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
