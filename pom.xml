@@ -39,70 +39,115 @@
         <url>https://sbforge.org/jira/browse/TOOL</url>
     </issueManagement>
 
-  <build>
-    <pluginManagement>
+    <build>
+      <pluginManagement>
+        <plugins>
+          <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+              <!-- source and target version set as properties to make forbiddenapis plugin work -->
+              <showDeprecation>true</showDeprecation>
+              <showWarnings>true</showWarnings>
+              <compilerArgs>
+                <arg>-Xlint</arg>
+              </compilerArgs>
+            </configuration>
+          </plugin>
+          <plugin>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>2.5.3</version>
+          </plugin>
+          <plugin>
+            <artifactId>maven-site-plugin</artifactId>
+            <version>3.8.2</version>
+            <dependencies>
+              <dependency>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav-jackrabbit</artifactId>
+                <version>2.6</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+          <plugin>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.2.0</version>
+          </plugin>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.22.2</version>
+          </plugin>
+          <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.2.3</version>
+          </plugin> 
+        </plugins>
+      </pluginManagement>
+
       <plugins>
         <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.1</version>
-        </plugin>
-        <plugin>
           <artifactId>maven-release-plugin</artifactId>
-          <version>2.5.3</version>
+          <configuration>
+                <!-- Needed by multi-module projects, see http://jira.codehaus.org/browse/MJAVADOC-276 -->
+            <preparationGoals>clean verify install</preparationGoals>
+          </configuration>
         </plugin>
         <plugin>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>3.8.2</version>
-          <dependencies>
-            <dependency>
-              <groupId>org.apache.maven.wagon</groupId>
-              <artifactId>wagon-webdav-jackrabbit</artifactId>
-              <version>2.6</version>
-            </dependency>
-          </dependencies>
-        </plugin>
-        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
-          <version>3.2.0</version>
+          <executions>
+            <execution>
+              <id>attach-sources</id>
+              <phase>none</phase><!--Disable the release-profile broken source plugin. See http://blog.peterlynch.ca/2010/05/maven-how-to-prevent-generate-sources.html-->
+            </execution>
+            <execution>
+              <id>attach-sources-no-fork</id>
+              <goals>
+                <goal>jar-no-fork</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.2</version>
+          <groupId>de.thetaphi</groupId>
+          <artifactId>forbiddenapis</artifactId>
+          <version>2.7</version>
+          <configuration>
+            <!--
+              if the used Java version is too new,
+              don't fail, just do nothing:
+            -->
+            <failOnUnsupportedJava>true</failOnUnsupportedJava>
+            <bundledSignatures>
+              <!--
+                This will automatically choose the right
+                signatures based on 'maven.compiler.target':
+              -->
+              <bundledSignature>jdk-unsafe</bundledSignature>
+              <bundledSignature>jdk-deprecated</bundledSignature>
+              <!-- disallow undocumented classes like sun.misc.Unsafe: -->
+              <bundledSignature>jdk-non-portable</bundledSignature>
+              <!-- don't allow unsafe reflective access: -->
+              <bundledSignature>jdk-reflection</bundledSignature>
+            </bundledSignatures>
+          </configuration>
+          <executions>
+            <execution>
+              <phase>${api.check.phase}</phase>
+              <goals>
+                <goal>check</goal>
+                <goal>testCheck</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
-        <plugin>
-          <artifactId>maven-war-plugin</artifactId>
-          <version>3.2.3</version>
-        </plugin> 
       </plugins>
-    </pluginManagement>
-    <plugins>
-      <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <configuration>
-              <!-- Needed by multi-module projects, see http://jira.codehaus.org/browse/MJAVADOC-276 -->
-          <preparationGoals>clean verify install</preparationGoals>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <phase>none</phase><!--Disable the release-profile broken source plugin. See http://blog.peterlynch.ca/2010/05/maven-how-to-prevent-generate-sources.html-->
-          </execution>
-          <execution>
-            <id>attach-sources-no-fork</id>
-            <goals>
-              <goal>jar-no-fork</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+    </build>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <api.check.phase>none</api.check.phase>
   </properties>
 </project>
