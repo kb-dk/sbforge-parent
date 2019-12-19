@@ -1,164 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>org.sbforge</groupId>
-    <artifactId>sbforge-parent</artifactId>
-    <version>22-SNAPSHOT</version>
-
-    <packaging>pom</packaging>
-    <name>SBForge Uber POM</name>
-    <url>https://sbforge.org/display/APP/Maven</url>
-    <description>This pom can be inherited by projects wishing to integrate to the SBForge development platform.
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.sbforge</groupId>
+  <artifactId>sbforge-parent</artifactId>
+  <version>22-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>SBForge Uber POM</name>
+  <url>https://sbforge.org/display/APP/Maven</url>
+  <description>This pom can be inherited by projects wishing to integrate to the SBForge development platform.
     </description>
-
-    <distributionManagement>
-        <repository>
-            <id>sbforge-nexus</id>
-            <name>SBForge Nexus Repo manager</name>
-            <url>https://sbforge.org/nexus/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>sbforge-nexus</id>
-            <name>SBForge Nexus Repo manager</name>
-            <url>https://sbforge.org/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-        <!-- This needs to be overridden in projects with subproject, where the (sub)projects typically will be deployed to a
+  <distributionManagement>
+    <repository>
+      <id>sbforge-nexus</id>
+      <name>SBForge Nexus Repo manager</name>
+      <url>https://sbforge.org/nexus/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>sbforge-nexus</id>
+      <name>SBForge Nexus Repo manager</name>
+      <url>https://sbforge.org/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+    <!-- This needs to be overridden in projects with subproject, where the (sub)projects typically will be deployed to a
           common site url based on the parent projects artifactId -->
-        <!-- <site> <id>sbforge-nexus</id> <name>SBForge Maven site</name> <url>${project.site.location}</url> </site> -->
-    </distributionManagement>
-
-    <scm>
-        <connection>scm:git:https://github.com/statsbiblioteket/sbforge-parent.git</connection>
-        <developerConnection>scm:git:git@github.com:statsbiblioteket/sbforge-parent.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
-
-    <issueManagement>
-        <system>JIRA</system>
-        <url>https://sbforge.org/jira/browse/TOOL</url>
-    </issueManagement>
-
-    <profiles>
-        <profile>
-            <id>allTests</id>
-                <properties>
-                    <test.excludedGroups></test.excludedGroups>
-                </properties>
-        </profile>
-    </profiles>
-
-    <build>
-      <pluginManagement>
-        <plugins>
-          <plugin>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.1</version>
-            <configuration>
-              <!-- source and target version set as properties to make forbiddenapis plugin work -->
-              <showDeprecation>true</showDeprecation>
-              <showWarnings>true</showWarnings>
-              <compilerArgs>
-                <arg>-Xlint</arg>
-              </compilerArgs>
-            </configuration>
-          </plugin>
-          <plugin>
-            <artifactId>maven-release-plugin</artifactId>
-            <version>2.5.3</version>
-          </plugin>
-          <plugin>
-            <artifactId>maven-site-plugin</artifactId>
-            <version>3.8.2</version>
-            <dependencies>
-              <dependency>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-webdav-jackrabbit</artifactId>
-                <version>2.6</version>
-              </dependency>
-            </dependencies>
-          </plugin>
-          <plugin>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>3.2.0</version>
-          </plugin>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.22.2</version>
-          </plugin>
-          <plugin>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>3.2.3</version>
-          </plugin> 
-        </plugins>
-      </pluginManagement>
-
+    <!-- <site> <id>sbforge-nexus</id> <name>SBForge Maven site</name> <url>${project.site.location}</url> </site> -->
+  </distributionManagement>
+  <scm>
+    <connection>scm:git:https://github.com/statsbiblioteket/sbforge-parent.git</connection>
+    <developerConnection>scm:git:git@github.com:statsbiblioteket/sbforge-parent.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+  <issueManagement>
+    <system>JIRA</system>
+    <url>https://sbforge.org/jira/browse/TOOL</url>
+  </issueManagement>
+  <profiles>
+    <profile>
+      <id>allTests</id>
+      <properties>
+        <test.excludedGroups/>
+      </properties>
+    </profile>
+  </profiles>
+  <build>
+    <pluginManagement>
       <plugins>
         <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.1</version>
+          <configuration>
+            <!-- source and target version set as properties to make forbiddenapis plugin work -->
+            <showDeprecation>true</showDeprecation>
+            <showWarnings>true</showWarnings>
+            <compilerArgs>
+              <arg>-Xlint</arg>
+            </compilerArgs>
+          </configuration>
+        </plugin>
+        <plugin>
           <artifactId>maven-release-plugin</artifactId>
-          <configuration>
-                <!-- Needed by multi-module projects, see http://jira.codehaus.org/browse/MJAVADOC-276 -->
-            <preparationGoals>clean verify install</preparationGoals>
-          </configuration>
+          <version>2.5.3</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.8.2</version>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.maven.wagon</groupId>
+              <artifactId>wagon-webdav-jackrabbit</artifactId>
+              <version>2.6</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+        <plugin>
           <artifactId>maven-source-plugin</artifactId>
-          <executions>
-            <execution>
-              <id>attach-sources</id>
-              <phase>none</phase><!--Disable the release-profile broken source plugin. See http://blog.peterlynch.ca/2010/05/maven-how-to-prevent-generate-sources.html-->
-            </execution>
-            <execution>
-              <id>attach-sources-no-fork</id>
-              <goals>
-                <goal>jar-no-fork</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>de.thetaphi</groupId>
-          <artifactId>forbiddenapis</artifactId>
-          <version>2.7</version>
-          <configuration>
-            <!--
-              if the used Java version is too new,
-              don't fail, just do nothing:
-            -->
-            <failOnUnsupportedJava>true</failOnUnsupportedJava>
-            <bundledSignatures>
-              <!--
-                This will automatically choose the right
-                signatures based on 'maven.compiler.target':
-              -->
-              <bundledSignature>jdk-unsafe</bundledSignature>
-              <bundledSignature>jdk-deprecated</bundledSignature>
-              <!-- disallow undocumented classes like sun.misc.Unsafe: -->
-              <bundledSignature>jdk-non-portable</bundledSignature>
-              <!-- don't allow unsafe reflective access: -->
-              <bundledSignature>jdk-reflection</bundledSignature>
-            </bundledSignatures>
-          </configuration>
-          <executions>
-            <execution>
-              <phase>${api.check.phase}</phase>
-              <goals>
-                <goal>check</goal>
-                <goal>testCheck</goal>
-              </goals>
-            </execution>
-          </executions>
+          <version>3.2.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
-          <configuration>
-            <excludedGroups>${test.excludedGroups}</excludedGroups>
-          </configuration>
+          <version>2.22.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.2.3</version>
         </plugin>
       </plugins>
-    </build>
-
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <!-- Needed by multi-module projects, see http://jira.codehaus.org/browse/MJAVADOC-276 -->
+          <preparationGoals>clean verify install</preparationGoals>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>none</phase>
+            <!--Disable the release-profile broken source plugin. See http://blog.peterlynch.ca/2010/05/maven-how-to-prevent-generate-sources.html-->
+          </execution>
+          <execution>
+            <id>attach-sources-no-fork</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>de.thetaphi</groupId>
+        <artifactId>forbiddenapis</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <!--
+              if the used Java version is too new,
+              don't fail, just do nothing:
+            -->
+          <failOnUnsupportedJava>true</failOnUnsupportedJava>
+          <bundledSignatures>
+            <!--
+                This will automatically choose the right
+                signatures based on 'maven.compiler.target':
+              -->
+            <bundledSignature>jdk-unsafe</bundledSignature>
+            <bundledSignature>jdk-deprecated</bundledSignature>
+            <!-- disallow undocumented classes like sun.misc.Unsafe: -->
+            <bundledSignature>jdk-non-portable</bundledSignature>
+            <!-- don't allow unsafe reflective access: -->
+            <bundledSignature>jdk-reflection</bundledSignature>
+          </bundledSignatures>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>${api.check.phase}</phase>
+            <goals>
+              <goal>check</goal>
+              <goal>testCheck</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <excludedGroups>${test.excludedGroups}</excludedGroups>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
