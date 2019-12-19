@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.sbforge</groupId>
   <artifactId>sbforge-parent</artifactId>
-  <version>22</version>
+  <version>23-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>SBForge Uber POM</name>
   <url>https://sbforge.org/display/APP/Maven</url>
@@ -28,7 +28,7 @@
   <scm>
     <connection>scm:git:https://github.com/statsbiblioteket/sbforge-parent.git</connection>
     <developerConnection>scm:git:git@github.com:statsbiblioteket/sbforge-parent.git</developerConnection>
-    <tag>sbforge-parent-22</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
