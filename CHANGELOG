@@ -1,3 +1,7 @@
+23
+* maven-jar-plugin automatically inserts ${module.name} as Automatic-Module-Name.
+ If ${module.name} is not defined, it will use ${project.groupId}.${project.artifactId} with - replaced with _
+
 19
 * Moving Changelog to plain text file at project root.
 * Switching to release-plugin 2.5 to support git 1.8.
