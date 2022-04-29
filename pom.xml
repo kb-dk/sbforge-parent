@@ -7,8 +7,8 @@
   <packaging>pom</packaging>
   <name>SBForge Uber POM</name>
   <url>https://sbforge.org/display/APP/Maven</url>
-  <description>This pom can be inherited by projects wishing to integrate to the SBForge development platform.
-    </description>
+  <description>This pom can be inherited by projects wishing to integrate to the SBForge development platform.</description>
+
   <distributionManagement>
     <repository>
       <id>sbforge-nexus</id>
