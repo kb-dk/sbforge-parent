@@ -1,3 +1,6 @@
+24
+* Change default Java version to 17
+
 19
 * Moving Changelog to plain text file at project root.
 * Switching to release-plugin 2.5 to support git 1.8.
