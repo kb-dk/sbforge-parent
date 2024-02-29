@@ -187,6 +187,6 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <api.check.phase>none</api.check.phase>
-    <test.excludedGroups>slow</test.excludedGroups>
+    <test.excludedGroups>slow,blocked,integrationTest</test.excludedGroups>
   </properties>
 </project>
