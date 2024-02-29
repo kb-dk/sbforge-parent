@@ -1,5 +1,5 @@
 unreleased:
-* Added two new unittest annotations 'blocked' and 'integrationTest'. All test annotation with these will not be run automatic
+* Added two new unittest annotations 'blocked' and 'integration'. All test annotation with these will not be run automatic
 
 24
 * Change default Java version to 17
